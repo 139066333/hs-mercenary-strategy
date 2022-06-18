@@ -4,6 +4,8 @@ namespace HsMercenaryStrategy
 {
     public class FireStrategy: IStrategy
     {
+        
+        public static string StrategyName = "PVE火焰队策略";
         public List<BattleTarget> GetBattleTargets(List<Mercenary> mercenaries, List<Target> targets)
         {
 
@@ -68,7 +70,7 @@ namespace HsMercenaryStrategy
 
         public string Name()
         {
-            return "PVE火焰队策略";
+            return StrategyName;
         }
     }
 }
