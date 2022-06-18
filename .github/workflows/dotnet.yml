@@ -25,7 +25,7 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          git clone https://github.com/jimowushuang/hs-mercenary-source
+          git clone https://${env:ACCESS_TOKEN}@github.com/jimowushuang/hs-mercenary-source.git
           cp hs-mercenary-strategy/bin/Release/*.dll hs-mercenary-source/lib
           cd hs-mercenary-source
           git add .
