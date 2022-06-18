@@ -68,7 +68,7 @@ namespace HsMercenaryStrategy
 
         public string Name()
         {
-            return "火焰队策略";
+            return "PVE火焰队策略";
         }
     }
 }
