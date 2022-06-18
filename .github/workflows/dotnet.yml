@@ -1,0 +1,37 @@
+name: .NET
+
+on:
+  workflow_dispatch:
+  push:
+    branches:    
+      - master
+  
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+      - name: Restore Packages
+        run: nuget restore hs-mercenary.sln
+      - name: Build Solution
+        run: |
+          msbuild.exe hs-mercenary-strategy.sln /nr:false /p:platform="Any CPU" /p:configuration="Release" 
+      - name: Deploy
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          git clone https://github.com/jimowushuang/hs-mercenary
+          cp bin/Release/*.dll hs-mercenary/BepInEx/plugins
+          cd hs-mercenary
+          git add .
+          git config --global user.name "jimowushuang"
+          git config --global user.email "jimowushuang@outlook.com"
+          git commit -m "update"
+          git push https://${env:ACCESS_TOKEN}@github.com/jimowushuang/hs-mercenary.git -f
+
+      
